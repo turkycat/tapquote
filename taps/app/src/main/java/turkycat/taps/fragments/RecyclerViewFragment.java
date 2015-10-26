@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import turkycat.taps.R;
+import turkycat.taps.adapters.RecyclerViewAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +27,7 @@ public class RecyclerViewFragment extends Fragment
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
+    private RecyclerViewAdapter viewAdapter;
     private final int numberOfCols = 2;
 
     public RecyclerViewFragment()
@@ -44,6 +46,9 @@ public class RecyclerViewFragment extends Fragment
 
         //set the layout manager to a grid manager
         layoutManager = new GridLayoutManager( getContext(), numberOfCols );
+
+        viewAdapter = new RecyclerViewAdapter();
+        recyclerView.setAdapter( viewAdapter );
 
         return view;
     }
@@ -78,6 +83,7 @@ public class RecyclerViewFragment extends Fragment
         mListener = null;
         recyclerView = null;
         layoutManager = null;
+        viewAdapter = null;
     }
 
     /**
