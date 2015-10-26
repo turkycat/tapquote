@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import turkycat.taps.ApplicationResources;
 import turkycat.taps.R;
 import turkycat.taps.adapters.RecyclerViewAdapter;
 
@@ -46,8 +47,9 @@ public class RecyclerViewFragment extends Fragment
 
         //set the layout manager to a grid manager
         layoutManager = new GridLayoutManager( getContext(), numberOfCols );
+        recyclerView.setLayoutManager( layoutManager );
 
-        viewAdapter = new RecyclerViewAdapter();
+        viewAdapter = new RecyclerViewAdapter( ApplicationResources.getInstance().getTaps() );
         recyclerView.setAdapter( viewAdapter );
 
         return view;

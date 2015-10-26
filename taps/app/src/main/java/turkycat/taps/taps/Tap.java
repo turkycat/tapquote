@@ -15,4 +15,14 @@ public class Tap
         this.name = name;
         this.drawable = drawable;
     }
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public Drawable getDrawable()
+    {
+        return drawable;
+    }
 }

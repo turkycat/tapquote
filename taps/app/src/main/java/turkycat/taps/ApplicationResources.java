@@ -23,6 +23,11 @@ public class ApplicationResources
         return instance;
     }
 
+    public List<Tap> getTaps()
+    {
+        return tapList;
+    }
+
     public void initialize( Context context )
     {
         AssetManager assets = context.getAssets();
