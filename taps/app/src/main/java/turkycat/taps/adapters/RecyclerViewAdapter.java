@@ -6,6 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -31,6 +34,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     {
         LayoutInflater inflater = LayoutInflater.from( parent.getContext() );
         View view = inflater.inflate( R.layout.recycler_card, parent, false );
+        view.setLayoutParams( new RecyclerView.LayoutParams( ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT ) );
         return new TapViewHolder( view );
     }
 
@@ -45,7 +49,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         TapViewHolder tvh = (TapViewHolder) holder;
 
         Tap tap = taps.get( position );
-        tvh.getImageView().setImageDrawable( tap.getDrawable() );
+        tvh.getImageView().setImageDrawable( tap.getThumbnail() );
+        tvh.getTitleView().setText( tap.getName() );
+        tvh.getDescView().setText( tap.getDescription() );
     }
 
     @Override
@@ -59,17 +65,31 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public static class TapViewHolder extends RecyclerView.ViewHolder
     {
         private final ImageView imageView;
+        private final TextView titleTextView;
+        private final TextView descTextView;
 
         public TapViewHolder( View view )
         {
             super( view );
             imageView = (ImageView) view.findViewById( R.id.tap_imageview );
+            titleTextView = (TextView) view.findViewById( R.id.tap_name );
+            descTextView = (TextView) view.findViewById( R.id.tap_desc );
         }
 
 
         public ImageView getImageView()
         {
             return imageView;
+        }
+
+        public TextView getTitleView()
+        {
+            return titleTextView;
+        }
+
+        public TextView getDescView()
+        {
+            return descTextView;
         }
     }
 }
