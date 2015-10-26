@@ -1,7 +1,6 @@
 package turkycat.taps.adapters;
 
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +30,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public RecyclerView.ViewHolder onCreateViewHolder( ViewGroup parent, int viewType )
     {
         LayoutInflater inflater = LayoutInflater.from( parent.getContext() );
-        View view = inflater.inflate( R.layout.recycler_tap_item, parent, false );
+        View view = inflater.inflate( R.layout.recycler_card, parent, false );
         return new TapViewHolder( view );
     }
 
