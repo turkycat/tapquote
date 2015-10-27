@@ -8,6 +8,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -21,7 +22,7 @@ import turkycat.taps.adapters.RecyclerViewAdapter;
  * {@link RecyclerViewFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  */
-public class RecyclerViewFragment extends Fragment
+public class RecyclerViewFragment extends Fragment implements RecyclerView.OnItemTouchListener
 {
     public final static String TAG = "RecyclerViewFragment";
 
@@ -54,16 +55,9 @@ public class RecyclerViewFragment extends Fragment
         viewAdapter = new RecyclerViewAdapter( ApplicationResources.getInstance().getTaps() );
         recyclerView.setAdapter( viewAdapter );
 
-        return view;
-    }
+        recyclerView.addOnItemTouchListener( this );
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed( Uri uri )
-    {
-        if( mListener != null )
-        {
-            mListener.onFragmentInteraction( uri );
-        }
+        return view;
     }
 
     @Override
@@ -90,6 +84,31 @@ public class RecyclerViewFragment extends Fragment
         viewAdapter = null;
     }
 
+    @Override
+    public boolean onInterceptTouchEvent( RecyclerView rv, MotionEvent e )
+    {
+        View childView = rv.findChildViewUnder(e.getX(), e.getY());
+
+        if(childView != null && mListener != null)
+        {
+            mListener.onFragmentInteraction( childView, rv.getChildAdapterPosition( childView ) );
+        }
+
+        return false;
+    }
+
+    @Override
+    public void onTouchEvent( RecyclerView rv, MotionEvent e )
+    {
+
+    }
+
+    @Override
+    public void onRequestDisallowInterceptTouchEvent( boolean disallowIntercept )
+    {
+
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -103,7 +122,7 @@ public class RecyclerViewFragment extends Fragment
     public interface OnFragmentInteractionListener
     {
         // TODO: Update argument type and name
-        public void onFragmentInteraction( Uri uri );
+        public void onFragmentInteraction( View view, int pos );
     }
 
 }

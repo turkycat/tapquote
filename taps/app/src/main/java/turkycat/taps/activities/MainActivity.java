@@ -19,6 +19,7 @@ import android.view.MenuItem;
 import turkycat.taps.ApplicationResources;
 import turkycat.taps.R;
 import turkycat.taps.fragments.RecyclerViewFragment;
+import turkycat.taps.fragments.TapFragment;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, RecyclerViewFragment.OnFragmentInteractionListener
@@ -133,8 +134,12 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onFragmentInteraction( Uri uri )
+    public void onFragmentInteraction( View view, int pos )
     {
-
+        //attach the new fragment to the main view
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction t = fm.beginTransaction();
+        t.replace( R.id.framelayout_main, TapFragment.newInstance( pos ), TapFragment.TAG );
+        t.commit();
     }
 }

@@ -31,6 +31,12 @@ public class ApplicationResources
         return tapList;
     }
 
+    public Tap getTap( int pos )
+    {
+        if( pos < 0 || pos >= tapList.size() ) return null;
+        return tapList.get( pos );
+    }
+
     public void initialize( Context context )
     {
         Drawable drawable = ContextCompat.getDrawable( context, R.drawable.td4w );

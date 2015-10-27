@@ -49,7 +49,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         TapViewHolder tvh = (TapViewHolder) holder;
 
         Tap tap = taps.get( position );
-        tvh.getImageView().setImageDrawable( tap.getThumbnail() );
+        tvh.getImageView().setImageResource( R.drawable.td4w );
         tvh.getTitleView().setText( tap.getName() );
         tvh.getDescView().setText( tap.getDescription() );
     }
