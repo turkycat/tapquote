@@ -1,11 +1,13 @@
 package turkycat.taps.fragments;
 
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import turkycat.taps.ApplicationResources;
 import turkycat.taps.R;
@@ -63,7 +65,10 @@ public class TapFragment extends Fragment
                               Bundle savedInstanceState )
     {
         // Inflate the layout for this fragment
-        return inflater.inflate( R.layout.fragment_tap, container, false );
+        View view = inflater.inflate( R.layout.fragment_tap, container, false );
+        ImageView iv = (ImageView) view.findViewById( R.id.tap_imageview );
+        iv.setImageDrawable( ApplicationResources.getInstance().getDrawable( tap.getDrawableId() ) );
+        return view;
     }
 
     @Override

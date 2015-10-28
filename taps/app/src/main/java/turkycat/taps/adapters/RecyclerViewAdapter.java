@@ -12,6 +12,7 @@ import org.w3c.dom.Text;
 
 import java.util.List;
 
+import turkycat.taps.ApplicationResources;
 import turkycat.taps.R;
 import turkycat.taps.taps.Tap;
 
@@ -49,7 +50,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         TapViewHolder tvh = (TapViewHolder) holder;
 
         Tap tap = taps.get( position );
-        tvh.getImageView().setImageResource( R.drawable.td4w );
+        tvh.getImageView().setImageDrawable( ApplicationResources.getInstance().getDrawable( tap.getThumbnailId() ) );
         tvh.getTitleView().setText( tap.getName() );
         tvh.getDescView().setText( tap.getDescription() );
     }

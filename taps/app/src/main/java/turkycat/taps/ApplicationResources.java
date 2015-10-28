@@ -7,6 +7,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,8 +20,10 @@ public class ApplicationResources
 {
     //singleton class
     private static ApplicationResources instance = new ApplicationResources();
-    private List<Tap> tapList;
-
+    
+    private List<Tap> taps;
+    private HashMap<String, Drawable> drawables;
+    
     public static ApplicationResources getInstance()
     {
         return instance;
@@ -28,32 +31,44 @@ public class ApplicationResources
 
     public List<Tap> getTaps()
     {
-        return tapList;
+        return taps;
     }
 
     public Tap getTap( int pos )
     {
-        if( pos < 0 || pos >= tapList.size() ) return null;
-        return tapList.get( pos );
+        if( pos < 0 || pos >= taps.size() ) return null;
+        return taps.get( pos );
+    }
+
+    public Drawable getDrawable( String id )
+    {
+        return drawables.get( id );
     }
 
     public void initialize( Context context )
     {
-        Drawable drawable = ContextCompat.getDrawable( context, R.drawable.td4w );
-        tapList.add( new Tap( "#TD4W", "Turn down for...?", drawable, createThumbnail( drawable, context ) ) );
+        initDrawables( context );
+        taps.add( new Tap( "#TD4W", "Turn down for...?", "td4w", "td4w_s" ) );
     }
 
-    private Drawable createThumbnail( Drawable drawable, Context context )
+    private void initDrawables( Context context )
+    {
+        drawables.put( "td4w", ContextCompat.getDrawable( context, R.drawable.td4w ) );
+        drawables.put( "td4w_s", ContextCompat.getDrawable( context, R.drawable.td4w_s ) );
+    }
+
+    /*private Drawable createThumbnail( Drawable drawable, Context context )
     {
         Bitmap b = ( (BitmapDrawable) drawable ).getBitmap();
         int h = b.getHeight();
         Bitmap bitmapResized = Bitmap.createScaledBitmap( b, 250, 250, false );
         return new BitmapDrawable( context.getResources(), bitmapResized );
-    }
+    }*/
 
     //private singleton constructor
     private ApplicationResources()
     {
-        tapList = new LinkedList<>();
+        taps = new LinkedList<>();
+        drawables = new HashMap<>();
     }
 }

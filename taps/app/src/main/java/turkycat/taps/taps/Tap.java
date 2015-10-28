@@ -10,15 +10,15 @@ public class Tap
 {
     private String name;
     private String desc;
-    private Drawable drawable;
-    private Drawable thumbnail;
+    private String drawableId;
+    private String thumbnailId;
 
-    public Tap( String name, String description, Drawable drawable, Drawable thumbnail )
+    public Tap( String name, String description, String drawableId, String thumbnailId )
     {
         this.name = name;
         this.desc = description;
-        this.drawable = drawable;
-        this.thumbnail = thumbnail;
+        this.drawableId = drawableId;
+        this.thumbnailId = thumbnailId;
     }
 
     public String getName()
@@ -31,13 +31,13 @@ public class Tap
         return desc;
     }
 
-    public Drawable getDrawable()
+    public String getDrawableId()
     {
-        return drawable;
+        return drawableId;
     }
 
-    public Drawable getThumbnail()
+    public String getThumbnailId()
     {
-        return thumbnail;
+        return thumbnailId;
     }
 }

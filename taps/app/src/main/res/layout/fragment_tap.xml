@@ -5,9 +5,8 @@
              tools:context="turkycat.taps.fragments.TapFragment">
 
     <ImageView
-        android:id="@+id/button"
+        android:id="@+id/tap_imageview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:onClick="PlayAudio"
-        android:src="@drawable/td4w"/>
+        android:onClick="PlayAudio"/>
 </FrameLayout>
