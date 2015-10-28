@@ -31,7 +31,6 @@ public class RecyclerViewFragment extends Fragment implements RecyclerView.OnIte
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
     private RecyclerViewAdapter viewAdapter;
-    private final int numberOfCols = 2;
 
     public RecyclerViewFragment()
     {
@@ -91,7 +90,7 @@ public class RecyclerViewFragment extends Fragment implements RecyclerView.OnIte
 
         if(childView != null && mListener != null)
         {
-            mListener.onFragmentInteraction( childView, rv.getChildAdapterPosition( childView ) );
+            mListener.onFragmentInteraction( childView, viewAdapter.getTapId( rv.getChildAdapterPosition( childView ) ) );
         }
 
         return false;
@@ -122,7 +121,7 @@ public class RecyclerViewFragment extends Fragment implements RecyclerView.OnIte
     public interface OnFragmentInteractionListener
     {
         // TODO: Update argument type and name
-        public void onFragmentInteraction( View view, int pos );
+        public void onFragmentInteraction( View view, String id );
     }
 
 }

@@ -13,34 +13,20 @@ import turkycat.taps.ApplicationResources;
 import turkycat.taps.R;
 import turkycat.taps.taps.Tap;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link TapFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link TapFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class TapFragment extends Fragment
 {
     public static final String TAG = "TagFragment";
 
-    private static final String ARG_TAPNO = "tapno";
+    private static final String ARG_TAPID = "tap";
 
     private Tap tap;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @return A new instance of fragment TapFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static TapFragment newInstance( int tapno )
+    public static TapFragment newInstance( String id )
     {
         TapFragment fragment = new TapFragment();
         Bundle args = new Bundle();
-        args.putInt( ARG_TAPNO, tapno );
+        args.putString( ARG_TAPID, id );
         fragment.setArguments( args );
         return fragment;
     }
@@ -56,7 +42,7 @@ public class TapFragment extends Fragment
         super.onCreate( savedInstanceState );
         if( getArguments() != null )
         {
-            tap = ApplicationResources.getInstance().getTap( getArguments().getInt( ARG_TAPNO ) );
+            tap = ApplicationResources.getInstance().getTap( getArguments().getString( ARG_TAPID ) );
         }
     }
 
@@ -66,8 +52,18 @@ public class TapFragment extends Fragment
     {
         // Inflate the layout for this fragment
         View view = inflater.inflate( R.layout.fragment_tap, container, false );
+
         ImageView iv = (ImageView) view.findViewById( R.id.tap_imageview );
         iv.setImageDrawable( ApplicationResources.getInstance().getDrawable( tap.getDrawableId() ) );
+        iv.setOnClickListener( new View.OnClickListener()
+        {
+            @Override
+            public void onClick( View v )
+            {
+                ApplicationResources.getInstance().playAudio( tap.getId() );
+            }
+        } );
+
         return view;
     }
 
@@ -76,21 +72,4 @@ public class TapFragment extends Fragment
     {
         super.onDetach();
     }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener
-    {
-        // TODO: Update argument type and name
-        public void onFragmentInteraction( Uri uri );
-    }
-
 }

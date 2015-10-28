@@ -8,22 +8,24 @@ import android.graphics.drawable.Drawable;
  */
 public class Tap
 {
-    private String name;
+    private String id;
+    private String title;
     private String desc;
     private String drawableId;
     private String thumbnailId;
 
-    public Tap( String name, String description, String drawableId, String thumbnailId )
+    public Tap( String id, String title, String description, String drawableId, String thumbnailId )
     {
-        this.name = name;
+        this.id = id;
+        this.title = title;
         this.desc = description;
         this.drawableId = drawableId;
         this.thumbnailId = thumbnailId;
     }
 
-    public String getName()
+    public String getId()
     {
-        return name;
+        return id;
     }
 
     public String getDescription()
@@ -39,5 +41,10 @@ public class Tap
     public String getThumbnailId()
     {
         return thumbnailId;
+    }
+
+    public String getTitle()
+    {
+        return title;
     }
 }

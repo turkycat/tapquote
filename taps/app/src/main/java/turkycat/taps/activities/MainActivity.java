@@ -1,6 +1,5 @@
 package turkycat.taps.activities;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,7 +15,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import turkycat.taps.ApplicationResources;
 import turkycat.taps.R;
 import turkycat.taps.fragments.RecyclerViewFragment;
 import turkycat.taps.fragments.TapFragment;
@@ -134,12 +132,12 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void onFragmentInteraction( View view, int pos )
+    public void onFragmentInteraction( View view, String id )
     {
         //attach the new fragment to the main view
         FragmentManager fm = getSupportFragmentManager();
         FragmentTransaction t = fm.beginTransaction();
-        t.replace( R.id.framelayout_main, TapFragment.newInstance( pos ), TapFragment.TAG );
+        t.replace( R.id.framelayout_main, TapFragment.newInstance( id ), TapFragment.TAG );
         t.commit();
     }
 }

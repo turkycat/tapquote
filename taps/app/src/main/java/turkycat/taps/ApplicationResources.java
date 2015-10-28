@@ -2,11 +2,14 @@ package turkycat.taps;
 
 import android.content.Context;
 
+import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.support.v4.content.ContextCompat;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -20,9 +23,11 @@ public class ApplicationResources
 {
     //singleton class
     private static ApplicationResources instance = new ApplicationResources();
-    
-    private List<Tap> taps;
+
+    private MediaPlayer player;
+    private HashMap<String, Tap> taps;
     private HashMap<String, Drawable> drawables;
+    private HashMap<String, AssetFileDescriptor> audioDescriptors;
     
     public static ApplicationResources getInstance()
     {
@@ -31,13 +36,12 @@ public class ApplicationResources
 
     public List<Tap> getTaps()
     {
-        return taps;
+        return new LinkedList<Tap>( taps.values() );
     }
 
-    public Tap getTap( int pos )
+    public Tap getTap( String id )
     {
-        if( pos < 0 || pos >= taps.size() ) return null;
-        return taps.get( pos );
+        return taps.get( id );
     }
 
     public Drawable getDrawable( String id )
@@ -48,7 +52,45 @@ public class ApplicationResources
     public void initialize( Context context )
     {
         initDrawables( context );
-        taps.add( new Tap( "#TD4W", "Turn down for...?", "td4w", "td4w_s" ) );
+        taps.put( "td4w", new Tap( "td4w", "#TD4W", "Turn down for...?", "td4w", "td4w_s" ) );
+        try
+        {
+            audioDescriptors.put( "td4w", context.getAssets().openFd( "td4w.mp3" ) );
+        }
+        catch( IOException e )
+        {
+            // do nothing
+        }
+    }
+
+    public void playAudio( String id )
+    {
+        //we release the current player
+        if( player != null )
+        {
+            player.stop();
+            player.release();
+        }
+
+        //creating a new player seems to guarantee that each event creates a new play.
+        try
+        {
+            player = new MediaPlayer();
+            player.setDataSource( audioDescriptors.get( id ).getFileDescriptor() );
+            player.prepare();
+        }
+        catch( IllegalStateException e )
+        {
+            // nothing to do
+            e.printStackTrace();
+        }
+        catch( IOException e )
+        {
+            //nothing to do
+            e.printStackTrace();
+        }
+
+        player.start();
     }
 
     private void initDrawables( Context context )
@@ -68,7 +110,8 @@ public class ApplicationResources
     //private singleton constructor
     private ApplicationResources()
     {
-        taps = new LinkedList<>();
+        taps = new HashMap<>();
         drawables = new HashMap<>();
+        audioDescriptors = new HashMap<>();
     }
 }

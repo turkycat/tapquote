@@ -51,7 +51,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         Tap tap = taps.get( position );
         tvh.getImageView().setImageDrawable( ApplicationResources.getInstance().getDrawable( tap.getThumbnailId() ) );
-        tvh.getTitleView().setText( tap.getName() );
+        tvh.getTitleView().setText( tap.getTitle() );
         tvh.getDescView().setText( tap.getDescription() );
     }
 
@@ -59,6 +59,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public int getItemCount()
     {
         return taps.size();
+    }
+
+    public String getTapId( int pos )
+    {
+        if( pos < 0 || pos >= taps.size() ) return null;
+        return taps.get( pos ).getId();
     }
 
 
