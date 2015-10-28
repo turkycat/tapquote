@@ -1,12 +1,12 @@
 package turkycat.taps.fragments;
 
-import android.media.Image;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import turkycat.taps.ApplicationResources;
@@ -21,6 +21,7 @@ public class TapFragment extends Fragment
     private static final String ARG_TAPID = "tap";
 
     private Tap tap;
+    private Animation push;
 
     public static TapFragment newInstance( String id )
     {
@@ -44,6 +45,7 @@ public class TapFragment extends Fragment
         {
             tap = ApplicationResources.getInstance().getTap( getArguments().getString( ARG_TAPID ) );
         }
+        push = AnimationUtils.loadAnimation( getContext(), R.anim.push );
     }
 
     @Override
@@ -60,6 +62,7 @@ public class TapFragment extends Fragment
             @Override
             public void onClick( View v )
             {
+                v.startAnimation( push );
                 ApplicationResources.getInstance().playAudio( tap.getId() );
             }
         } );
